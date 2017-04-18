@@ -10,7 +10,7 @@
 - Firebase como BaaS.
 
 ## Demo
-- [`Demo de la aplicación:`](https://pitanzas-public.firebaseapp.com/) [Read object]
+- [`Demo de la aplicación:`](https://pitanzas-public.firebaseapp.com/)
 
 ## Install
 
@@ -24,14 +24,14 @@ npm install
 ng serve --o
 ```
 ## Deploy local (con instalación de service worker)
-Para instalación de service-worker en el browser local, ejecutar script 
+Para instalación de service-worker en el browser local, ejecutar script deploy-local, definido en el package.json 
 ```bash
 npm run deploy-local
 ```
 Ejecuta el build en entorno desarrollo, lanza el precaché y levanta un live-server con el dist/index.html
 
 ## Cordova
-Contiene internamente proyecto cordova. PAra generar empamquetado ejecutar script generate-apk
+Contiene internamente proyecto cordova. Para generar empaquetado cordova ejecutar script generate-apk, definido en el package.json
 ```bash
 cd cordova
 cordova platform add android
@@ -41,7 +41,7 @@ npm run generate-apk
 Ejecuta el build en entorno prod sobre la carpeta cordova/www seteando el base-href de android al index, lanza el precaché y empaqueta en cordova
 
 ## Deploy
-Desplegada sobre firebase hosting 
+Desplegada sobre firebase hosting, [`Demo de la aplicación:`](https://pitanzas-public.firebaseapp.com/)
 
 ## Pending
 - AOT
