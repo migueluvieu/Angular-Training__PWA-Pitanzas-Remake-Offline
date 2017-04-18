@@ -8,18 +8,37 @@ import 'rxjs/add/observable/of';
 @Injectable()
  export class UserInterfaceService {
     endPointMenu = 'user-interface/';
-    endPointData = 'user-data/';
     constructor(public af: AngularFireOffline ) {}
 
-    // se devuelve el menú ordenado por el campo orden de cada item
+    /**
+     * Devuelve el menú ordenado por el campo orden de cada item
+     * @returns {Observable<any>}
+     *
+     * @memberOf UserInterfaceService
+     */
     getAllMenu$(): Observable<any> {
         return this.af.database.list(this.endPointMenu).map(this.sorted);
     }
 
+    /**
+     * Devuelve menú a partir del id seleccionado
+     * @param {any} indexSelectedMenu
+     * @returns
+     *
+     * @memberOf UserInterfaceService
+     */
     selectMenu (indexSelectedMenu) {
        return this.getAllMenu$().map(menu => menu[indexSelectedMenu]);
    }
 
+  /**
+   * Devuelve las tabs correspondientes al menú seleccionado 
+   *
+   * @param {Object} menuSelected
+   * @returns
+   *
+   * @memberOf UserInterfaceService
+   */
     getTabs(menuSelected: Object) {
        // para obtener las tabs se selecciona el objeto tabs del menú seleccionado, que a su vez contiene objetos tab
        // (por ejemplo cenas:{..}, comidas:{..})...Mediante Object.keys se obtienen un listado de keys del objeto

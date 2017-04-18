@@ -1,11 +1,16 @@
 # PWA Pitanzas Remake Offline
-Aplicación PWA desarrollada sobre Angular 4.0.0 y bootstrap 4.0.0 alpha. BBDD RealTime Firebase3. Plugin angularfire2. AngularFire2 Offline.sw-precache-config.js para generación de service-worker y cacheo de recursos. Webkit speechRecognitios de chrome para la voz.
-Se genera proyecto cordova para empaquetar la apk. 
-Firebase como BaaS
+- Aplicación PWA. 
+- Desarrollada sobre Angular 4.0.0 y bootstrap 4.0.0 alpha, responsive design. 
+- Persistencia Firebase3, tanto para los datos de negocio como para el menú de la aplicación.
+- Angularfire2 y AngularFire2Offline para gestión offline de la aplicación. 
+- sw-precache para generación de service-worker y cacheo de recursos. 
+- Webkit speechRecognition de chrome para la voz.
+- Desplegada en Firebase Hosting
+- Adicionalmente se puede empaquetar a través de cordova, el proyecto contiene carpeta ./cordova y script customizado para ello.  
+- Firebase como BaaS.
 
 ## Demo
-
-- [`Demo:`](https://pitanzas-public.firebaseapp.com/) [Read object]
+- [`Demo de la aplicación:`](https://pitanzas-public.firebaseapp.com/) [Read object]
 
 ## Install
 
@@ -26,14 +31,14 @@ npm run deploy-local
 Ejecuta el build en entorno desarrollo, lanza el precaché y levanta un live-server con el dist/index.html
 
 ## Cordova
-Se crea internamente proyecto cordova con el fin de generar apk.
+Contiene internamente proyecto cordova. PAra generar empamquetado ejecutar script generate-apk
 ```bash
 cd cordova
 cordova platform add android
 npm run generate-apk
 ```
 
-Ejecuta el build en entorno prod sobre la carpeta cordova/www seteando el base-href al index, lanza el precaché y empaqueta en cordova
+Ejecuta el build en entorno prod sobre la carpeta cordova/www seteando el base-href de android al index, lanza el precaché y empaqueta en cordova
 
 ## Deploy
 Desplegada sobre firebase hosting 
@@ -45,5 +50,4 @@ Desplegada sobre firebase hosting
 - I18N
 
 ## License
-
-Licensed under the MIT Open Source license. For more information, see the [LICENSE](LICENSE) file in this repository.
+Licensed under the MIT Open Source license.
