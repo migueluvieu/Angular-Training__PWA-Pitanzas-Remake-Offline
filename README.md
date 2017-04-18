@@ -41,7 +41,7 @@ npm run generate-apk
 Ejecuta el build en entorno prod sobre la carpeta cordova/www seteando el base-href de android al index, lanza el precaché y empaqueta en cordova
 
 ## Deploy
-Desplegada sobre firebase hosting, [`Demo de la aplicación:`](https://pitanzas-public.firebaseapp.com/)
+Desplegada sobre firebase hosting, [`aquí`](https://pitanzas-public.firebaseapp.com/)
 
 ## Pending
 - AOT
