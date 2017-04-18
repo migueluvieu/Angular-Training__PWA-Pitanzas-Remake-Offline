@@ -25,3 +25,16 @@ Before running the tests make sure you are serving the app via `ng serve`.
 ## Further help
 
 To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
+
+#cordova
+Se crea proyecto cordova dentro, en raíz. 
+$ cd cordova
+$ rm -r www
+$ cd ..
+$ ng build --target=production --environment=prod --output-path cordova/www/  
+$ cd cordova
+$ cordova run browser
+o 
+$ cordova run android
+
+importante, para android cambiar el base en el index.html <base href="file:///android_asset/www/" />.
