@@ -46,6 +46,7 @@ Desplegada sobre firebase hosting, [`aquí`](https://pitanzas-public.firebaseapp
 ## Pending
 - AOT
 - LazyLoading
+- ElectronJS
 - Icono WIFI
 - I18N
 
