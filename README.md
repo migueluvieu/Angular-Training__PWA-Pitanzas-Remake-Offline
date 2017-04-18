@@ -7,7 +7,7 @@
 - Webkit speechRecognition de chrome para la voz.
 - Desplegada en Firebase Hosting
 - Adicionalmente se puede empaquetar a través de cordova, el proyecto contiene carpeta ./cordova y script customizado para ello.  
-- Firebase como BaaS.
+- Firebase como PaaS.
 
 ## Demo
 - [`Demo de la aplicación:`](https://pitanzas-public.firebaseapp.com/)
