@@ -1,40 +1,53 @@
-# ResponsiveMenuAngular2
+# PWA Pitanzas Remake Offline
+Aplicación PWA desarrollada sobre Angular 4.0.0 y bootstrap 4.0.0 alpha. BBDD Firebase3 mediante plugin angularfire2. AngularFire2 Offline. Utilizado sw-precache-config.js para generación de service-worker y cacheo de recursos. 
+También se genera proyecto cordova para empaquetar la apk 
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 1.0.0-rc.0.
+## Demo
 
-## Development server
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+- [`Demo:`](https://pitanzas-public.firebaseapp.com/) [Read object]
 
-## Code scaffolding
+## Install
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive/pipe/service/class/module`.
+```bash
+npm install
+```
 
-## Build
+## Build local
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `-prod` flag for a production build.
+```bash
+ng serve --o
+```
+## Build local (con service worker)
+Para instalación de service-worker en el browser local, ejecutar script 
+```bash
+npm run deploy-local
+```
+script : 
+"generate-apk" : "ng build && npm run precache && cd dist && live-server --port=4200 --host=localhost --entry-file=/index.html",
+Ejecuta el build en entorno desarrollo, lanza el precaché y levanta un live-server con el dist/index.html
 
-## Running unit tests
+## Cordova
+Se crea internamente proyecto cordova con el fin de generar apk.
+```bash
+cd cordova
+cordova platform add android
+npm run generate-apk
+```
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
 
-## Running end-to-end tests
+"generate-apk": "del cordova\\www\\ /F /Q && ng build --output-path cordova\\www\\ --base-href file:///android_asset/www/ &&  npm run precache && cd cordova && cordova run android"
+Ejecuta el build en entorno prod sobre la carpeta cordova/www seteando el base-href al index, lanza el precaché y empaqueta en cordova
 
-Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
-Before running the tests make sure you are serving the app via `ng serve`.
+## Deploy
+Desplegada sobre firebase hosting 
 
-## Further help
+## Pending
+- AOT
+- LazyLoading
+- Icono WIFI
+- I18N
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
 
-#cordova
-Se crea proyecto cordova dentro, en raíz. 
-$ cd cordova
-$ rm -r www
-$ cd ..
-$ ng build --target=production --environment=prod --output-path cordova/www/  
-$ cd cordova
-$ cordova run browser
-o 
-$ cordova run android
+## License
 
-importante, para android cambiar el base en el index.html <base href="file:///android_asset/www/" />.
+angularfire2-offline is licensed under the MIT Open Source license. For more information, see the [LICENSE](LICENSE) file in this repository.
