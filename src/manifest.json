@@ -1,0 +1,20 @@
+{
+    "short_name": "Pitanzas remake",
+    "name": "Pitanzas remake",
+    "icons": [{
+            "src": "assets/android-chrome-192x192.png",
+            "sizes": "400x400",
+            "type": "image/png"
+        },
+        {
+            "src": "assets/android-chrome-700x700.png",
+            "sizes": "700x700",
+            "type": "image/png"
+        }
+    ],
+    "start_url": "/index.html",
+    "display": "fullscreen",
+    "orientation": "portrait",
+    "background_color": "#3a3838",
+    "theme_color": "#085407"
+}

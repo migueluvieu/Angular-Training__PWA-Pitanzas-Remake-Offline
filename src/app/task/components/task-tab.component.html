@@ -1,0 +1,6 @@
+<div class="nav-item" *ngFor="let tab of this.tabsFromParent; let i = index; ">
+    <a class="nav-link" [ngClass]="{tabactive: i==0}" (click)="this.getTaskList(i)" id="tab-{{i}}">
+        <img src="assets/icons/{{tab.icon}}">
+        <p>{{tab.title}}</p>
+    </a>
+</div>

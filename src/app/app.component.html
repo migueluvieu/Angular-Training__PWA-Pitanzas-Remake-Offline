@@ -1,3 +1,31 @@
-<h1>
-  {{title}}
-</h1>
+<div class="container-fluid principal">
+
+    <div class="row">
+
+        <nav class="navbar-side col-sm-3 hidden-xs-down" #sidemenu>
+            <a class="menu-icon hidden-sm-up" (click)="toogleMenu()">
+                <img src="assets/icons/menu-close.svg " alt="cerrar menú ">
+            </a>
+            <ul class="navbar-nav  container text-center">
+                <li class="nav-item ">
+                    <a>
+                        <img class="perfil" src="assets/perfil.png">
+                    </a>
+                </li>
+                <li class="nav-item menu-item" *ngFor="let item of this.menu; let i = index; ">
+                    <a class="nav-link" (click)="selectMenu(i)">{{item.title | uppercase}} <span class="sr-only">(current)</span></a>
+                </li>
+            </ul>
+        </nav>
+
+        <main class="content col-12 col-sm-6 offset-sm-1  col-xl-6  " #content>
+            <a class="menu-icon " (click)="toogleMenu()">
+                <img *ngIf="!isVisibleMenu" src="assets/icons/menu-open.svg " alt="ver menú " class='hidden-sm-up'>
+            </a>
+
+            <router-outlet></router-outlet>
+        </main>
+    </div>
+
+
+</div>

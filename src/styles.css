@@ -1,1 +1,333 @@
-/* You can add global styles to this file, and also import other style files */
+body {
+    font-size: 18px;
+    font-family: 'Chewy', cursive;
+    color: white;
+    text-transform: uppercase;
+}
+
+.container {
+    padding: 0;
+    margin-left: 0;
+}
+
+.content {
+    padding: 0;
+}
+
+.principal {
+    background: url("./assets/Fondo.png") no-repeat center center;
+    background-size: cover;
+    height: 100vh;
+    overflow: hidden;
+}
+
+
+/******* SIDEMENU ****/
+
+.navbar-side {
+    height: 98vh;
+    overflow-y: scroll;
+}
+
+.navbar-nav {
+    display: flex;
+}
+
+.navbar-nav .nav-item {
+    margin-bottom: 0.5rem;
+    animation: crece .7s
+}
+
+.navbar-nav a {
+    background: url("./assets/stick.svg") no-repeat center center;
+    background-size: contain
+}
+
+.navbar-nav a:not([href]):not([tabindex]) {
+    color: #664A22;
+    text-shadow: 0.5px 1px #EB5453;
+}
+
+.navbar-nav .perfil {
+    width: auto;
+    height: 15rem;
+    animation: crece .7s;
+    transition: all 0.5s ease;
+}
+
+.navbar-nav .perfil:hover {
+    transform: rotateY(360deg);
+}
+
+.movimiento-menu {
+    z-index: 1000;
+    animation: animacion-menu .2s ease-in-out;
+}
+
+@keyframes animacion-menu {
+    from {
+        transform: translateX(0px);
+    }
+    to {
+        transform: translateX(200px);
+    }
+}
+
+.menu-icon img {
+    width: 2rem;
+    height: 2rem;
+    animation: crece .7s
+}
+
+
+/******** Contenido **********/
+
+.nav-tabs {
+    display: flex;
+    justify-content: space-around;
+}
+
+.nav-tabs .nav-item {
+    margin: 0 .1rem;
+    flex: 1 0 0;
+    animation: crece .7s
+}
+
+.nav-tabs .nav-item .nav-link {
+    margin: 0 .0;
+    padding: 0;
+}
+
+.nav-tabs .nav-item .nav-link.active {
+    color: red;
+    background: transparent;
+}
+
+.nav-tabs .nav-item .nav-link.active img {
+    border-color: red;
+}
+
+.nav-tabs .nav-item p {
+    font-size: 1rem;
+    margin: 0;
+    background: #664A22;
+}
+
+.nav-tabs .nav-item img {
+    width: 4rem;
+    height: 4rem;
+    border: 3px solid #664A22;
+    transition: all 0.5s ease;
+}
+
+.nav-tabs .nav-item img:hover {
+    transform: rotate(360deg);
+}
+
+.tabactive p {
+    color: orange;
+    border: 1px solid orange;
+}
+
+.nav-tabs .nav-item :hover {
+    animation: pendulum 0.7s ease-in-out;
+}
+
+@keyframes pendulum {
+    0%,
+    100% {
+        transform: rotate(-15deg);
+    }
+    97% {
+        transform: rotate(1deg);
+    }
+    95% {
+        transform: rotate(-5deg);
+    }
+    90% {
+        transform: rotate(10deg);
+    }
+    80% {
+        transform: rotate(-10deg);
+    }
+    10%,
+    70% {
+        transform: rotate(0deg);
+    }
+    40%,
+    60% {
+        transform: rotate(40deg)
+    }
+    50% {
+        transform: rotate(55deg);
+    }
+}
+
+.title-tasks {
+    /*color: #df4d57;*/
+    color: #C65D3E;
+    text-shadow: 1px 1px #000000;
+    text-align: center;
+    font-size: 1.5rem;
+}
+
+.buscador {
+    display: flex;
+    justify-content: flex-end;
+    padding: 0;
+    background: url("./assets/stick3.svg") no-repeat center center;
+    background-size: cover;
+    animation: crece .7s
+}
+
+.buscador .texto-buscador {
+    border: 0;
+    flex: 0 1 300px;
+    padding: 0.2rem 1rem;
+    color: #085407;
+    text-shadow: 1px 1px #c0c0c0;
+    text-transform: uppercase;
+    background: transparent;
+    font-family: inherit !important;
+}
+
+.buscador input:focus {
+    outline-style: none;
+}
+
+.buscador .ok {
+    border: 0;
+}
+
+.buscador img {
+    height: 2.5rem;
+    width: 2.5rem;
+    animation: crece 1s
+}
+
+.buscador .crece {
+    animation: crece .7s infinite
+}
+
+@keyframes crece {
+    50% {
+        transform: scale(1.2, 1.2);
+    }
+}
+
+.tareas {
+    top: 0;
+    overflow: hidden;
+    padding: 0;
+}
+
+.tareas .listado {
+    padding-left: 1rem;
+    padding-top: 0.2rem;
+    height: 70vh;
+}
+
+.tareas .listado .list-group {
+    height: 100%;
+    overflow-y: scroll;
+}
+
+.tareas .list-group-item {
+    background: transparent;
+    padding: .5rem;
+    border: 0;
+    background: url("./assets/stick2.png") no-repeat center center;
+    background-size: cover;
+    margin-bottom: .2rem;
+    display: flex;
+    flex-wrap: nowrap;
+}
+
+.tareas .tachado {
+    background: url("./assets/stick.png") no-repeat center center;
+    background-size: cover;
+    text-decoration: line-through;
+}
+
+.tareas .tachado input {
+    color: #e4e4e4;
+    text-shadow: 1px 1px #804000;
+}
+
+.list-group-item-action {
+    color: #804000;
+}
+
+.tareas .texto-item {
+    border: 0;
+    flex: 0 1 300px;
+    padding: 0.2rem 1rem;
+    color: #e4e4e4;
+    text-shadow: 1px 1px #804000;
+    font-family: inherit !important;
+    font-size: 19px;
+    text-transform: uppercase;
+    background: transparent;
+    text-align: center;
+}
+
+.tareas img {
+    height: 2rem;
+    width: 2rem;
+    transition: all 0.8s ease;
+}
+
+.tareas img:hover {
+    transform: rotate(360deg);
+}
+
+.tareas .opciones {
+    background: url("./assets/stick2.svg") no-repeat center center;
+    background-size: cover;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+.tareas .opciones img {
+    height: 2rem;
+    width: 2rem;
+}
+
+.disabled-element {
+    pointer-events: none;
+    opacity: .7
+}
+
+#toasty .toast.toasty-theme-material {
+    background-color: #fec055;
+    font-family: inherit !important;
+    font-size: 15px;
+    color: #804000 !important;
+}
+
+#toasty .toast {
+    opacity: .9;
+}
+
+@media (min-width: 576px) {
+    .navbar-nav .perfil {
+        width: auto;
+        height: 6rem;
+    }
+}
+
+@media(min-width: 1250px) {
+    .principal {
+        width: 100vh;
+        height: 60vh;
+        overflow: hidden;
+    }
+    .navbar-nav .perfil {
+        width: auto;
+        height: 10rem;
+    }
+    .tareas .listado {
+        height: 300px;
+    }
+}

@@ -1,0 +1,200 @@
+
+PAra que levante servidor y ejecute el browser aññadimos parámetro --o 
+$ ng serve --o
+tb lo podemos añadir al script en el package.json, en el ng start
+"start": "ng serve --o",
+
+El plugin para toast:
+https://github.com/akserg/ng2-toasty
+
+
+
+
+#cordova
+Se crea proyecto cordova dentro, en raíz. Crear proyecto cordova y colgarlo del raiz. 
+para añadir la plataforma
+$ cd cordova
+$ cordova platform add android
+
+Pongo los pasos pero luego se hace un script para que haga todo esto automático
+para crear la apk, borrar el www, crear el build (dev o prod) en cordova/www
+$ rm -r www  
+$ cd ..
+// borrar la carpeta www cada vez que hagamos build
+$   ng build --env=prod --output-path cordova/www/   Para producción
+o ng build --output-path cordova/www/ para dev
+importante, para android cambiar el base en el index.html 
+   <base href="file:///android_asset/www/" /> 
+ y añadir el cordova.js y  y añadir script de registro del serviceworker si se tiene:
+
+  <!-- cordova.js required for cordova apps -->
+    <script src="cordova.js"></script>
+   
+    <script>
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.register('/service-worker.js').then(function(registration) {
+                console.log('Service Worker registered');
+            }).catch(function(err) {
+                console.log('Service Worker registration failed: ', err);
+            });
+        }
+    </script>
+    
+$ cd cordova
+$ cordova run android/ios/browser
+
+podemos resumir todo esto añadiendo al package este script, creamos el sw y lanzamos el run de android
+se borra www, se genera build en la carpeta www con el base-haref de android
+ "generate-apk": "del cordova\\www\\ /F /Q && ng build --output-path cordova\\www\\ --base-href file:///android_asset/www/ &&  npm run precache && cd cordova && cordova run android"
+
+!!!!!Recordar meter el plugin cordova-whitelist!!!
+para que apk pillara firebase había que añadir en el config.xml de cordova 
+la meta de seguridad para aceptar sockets (wss://)
+ <meta http-equiv="Content-Security-Policy" content=" default-src * gap://ready file:; script-src 'self' 'unsafe-inline' 'unsafe-eval' cdn.firebase.com https://.firebaseio.com https://*.firebaseio.com; object-src 'self'; style-src 'self' 'unsafe-inline' ; connect-src * 'self' *.firebaseapp.com https://*.firebaseio.com* wss://*.firebaseio.com/ "/>
+
+
+# desplegar en firebase
+
+- npm install -g firebase-tools
+- ejecutar firebase-login si es la primera vez
+- ponerse en el raiz del proyecto y ejecutar firebase init
+ (crea carpetas para hosting como functions)
+- decir que es para Hosting, que descarge los modules de node para las functions y que no sobreescriba el index.html
+- la carpeta public, ponemos donde se hace el ng build, que por defecto es dist.
+- ejecutamos ng build
+- firebase deploy
+- cada vez que queramos subir, hay que hacer el build antes 
+
+NOTAS: 
+
+
+ # plugins cordova:
+
+ desde carpeta /cordova 
+ $cordova plugin add https://github.com/macdonst/SpeechRecognitionPlugin
+ reconocimiento de voz
+
+ #Para añadir js o css de terceras partes y webpack los empaquete en el bundle, 
+  se deben añadir en el angular-cli.json, array scripts o array styles: 
+    "styles": [
+            "../node_modules/ng2-toasty/bundles/style-material.css",
+            "../third-parts/bootstrap.min.4.0.0-alpha.6.css",
+            "styles.css"
+        ],
+    "scripts": ["../third-parts/jquery-3.1.1.slim.min.js",
+            "../third-parts/tether-1.4.0.min.js",
+            "../third-parts/bootstrap-4.0.0-alpha.min.js"
+        ]
+
+#webpack
+con ng eject se recupera el webpack.config.js. Se pierde el ng serve, ng build pero se puede "meter mano" al webpack.
+Para arrancar npm run start (ojo, levanta x el 8080) y para construir npm run build
+
+# pasos para PWA (OFFLINE, precaché,..)
+- Instalar angularfire
+- Instalar angularFire2 Offline-> plugin para trabajar offline con angular fire. Lo que hace es gestionar el offline a través de localforage (https://github.com/adriancarriger/angularfire2-offline)
+  $ npm install angularfire2-offline angularfire2 firebase --save
+- Instalar sw-precache (https://coryrylan.com/blog/fast-offline-angular-apps-with-service-workers)
+  npm install --save-dev sw-precache
+- Añadir al package.json el script 
+  "precache": "sw-precache --root=dist --config=sw-precache-config.js"
+- ejecutar primero el build de prod 
+  $ ng build --env=prod  o
+  $ ng build --env=prod --aot si  lo tenemos configurado
+- ejecutar npm run precache
+    esto genera un service-worker en la carpeta /dist con la config indicada en el sw-precache
+
+- finalmente firebase deploy si se está desplegando en firebase. 
+La secuancia sería: 
+ ng build --env=prod     o  ng build --env=prod --aot
+ npm run precache
+ firebase deploy
+
+->podemos crear un script en el package.json para toda esta secuencia: 
+ "deploy_firebase": "ng build --env=prod && npm run precache && firebase deploy"
+luego ejecutamos npm run deploy_firebase
+
+Para probar precache en desarrollo utilizamos el live-server (un servidor liviano)
+$ npm install -g live-server
+y lanzamos el servidor lanzando el /dist/index.html
+para ello se añade el script al package 
+"static-serve": "cd dist && live-server --port=4200 --host=localhost --entry-file=/index.html"
+y para tenerlo más completo, hacemos el build previo y el precaché : 
+"deploy_local": "ng build --env=prod && npm run precache && cd dist && live-server --port=4200 --host=localhost --entry-file=/index.html"
+finalmente npm run deploy_local y arranca el service-worker en desarrollo impor
+
+importante-> cuando tiras en local y se monta el service-worker, si luego se despliega en el mismo navegador en firebase hay que desregistrarlo porque se cruza
+
+En el navegador móvil no me pilla cambios en el cacheo (cambios al desplegar de nuevo) hasta que no cerrár el chrome -> MIRAR ESTRATEGIA DE CACHEO, POR DEFECTO CREO QUE ES FIRST CACHE
+
+Banner instalación (mirar https://houssein.me/progressive-angular-applications)
+
+crear un manifest.json en src
+{
+  "name": "Pitanzas Remake",
+  "short_name": "Pitanzas",
+  "icons": [
+    {
+      "src": "assets/icons/android-chrome-192x192.png",
+      "sizes": "192x192",
+      "type": "image\/png"
+    },
+    {
+      "src": "assets/icons/android-chrome-256x256.png",
+      "sizes": "256x256",
+      "type": "image\/png"
+    }
+  ],
+  "theme_color": "#b92b27",
+  "background_color": "#ffffff",
+  "display": "standalone",
+  "orientation": "portrait",
+  "start_url": "./?utm_source=web_app_manifest"
+}
+
+referenciarlo en index.html 
+ <link rel="manifest" href="/manifest.json">
+
+tendremos que añadirlo como un activo en angular-cli.json
+"assets": [
+  "assets",
+  "favicon.ico",
+  "manifest.json"
+]
+
+Instalación en cordova:
+añadimos un script que cree el build, esta vez no en dist, si no dentro de cordova. Ejecute el precache y copie el index.html que hay qen cordova en la carpeta www de cordova.
+Este index tiene el cordova.js así como el base_href para android 
+
+// importante, en cordova/ tengo un index.html ya con el cordova añadido y el href modificado así solo tengo que moverlo al www una vez hecho el build
+"generate-apk": "ng build --output-path cordova\\www\\ &&  cd cordova && del \\www\\index.html && copy index.html www && cordova run android"
+
+# aot
+https://www.ion-book.com/blog/tips/aot-ahead-of-time/
+n AOT le entregaremos al navegador un código mucho más reducido y pre-compilado aumentado el performance considerablemente y con JIT cada vez que se cargue la aplicación se volverá a compilar dentro del navegador.
+
+Añadir en el main.ts
+// The browser platform with a compiler
+import { 
+   platformBrowser 
+} from '@angular/platform-browser';
+
+// The generated app factory (AOT)
+import { 
+   AppModuleNgFactory
+} from './app.module.ngfactory';
+
+// Launch with the app module factory.
+platformBrowser().bootstrapModuleFactory(
+   AppModuleNgFactory
+);
+
+e instalar :
+npm install @angular/compiler-cli
+npm install @angular/platform-server 
+npm install @angular/compiler
+npm install  typescript@next --save 
+./node_modules/.bin/ngc -p tsconfig.json
+
+y ya ejecutar
+ng build --aot

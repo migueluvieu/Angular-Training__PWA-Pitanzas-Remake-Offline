@@ -1,0 +1,41 @@
+<span class="title-tasks col-12 offset-2"> Lista {{this.title}}</span>
+<div class="container">
+
+    <ng2-toasty [position]="'bottom-center'"></ng2-toasty>
+
+    <section class="col-12 text-center ">
+        <app-task-tab class="nav-tabs" [tabsFromParent]="tabs" (selectTab)="getTaskList($event)"> </app-task-tab>
+    </section>
+
+    <section class="buscador col-12 ">
+        <input type="text " [(ngModel)]="taskText" class="texto-buscador " placeholder="buscar, añadir,.. " #newTask/>
+        <a><img src="assets/icons/aniadir.png " (click)="createTask(newTask.value)" class="ok" alt="buscar, añadir "></a>
+        <a><img src="assets/icons/micro.svg" class="micro" id="micro" alt="hablar" (click)="record()"></a>
+    </section>
+
+    <section class="tareas col-12 row">
+        <div class="listado col-11 offset-1">
+            <div class="list-group ">
+                <div *ngFor="let item of this.taskList | search: 'description':taskText; let index = i ">
+
+                    <div class="list-group-item list-group-item-action" id="card-{{item.$key}}" [ngClass]="{tachado: item.checked}">
+                        <!--creamos variable de template dinámica para poner foco en el input desde manager.-->
+                        <input type="text " [(ngModel)]="item.description" class="texto-item" readonly id="input-{{item.$key}}" (click)="toogleCheck(item)" />
+                        <a data-toggle="collapse" href="#options-{{item.$key}}" (click)="toogleOptionsCard(item.$key)"><img src="assets/icons/opciones.png "></a>
+                    </div>
+
+                    <!--Creamos id dinámico para que pueda colapsarse-->
+                    <div class="collapse" id="options-{{item.$key}}">
+                        <span class="opciones col-6 offset-5">
+                        <img src="assets/icons/editar.png " (click)="updateTask(item)" >
+                        <img src="assets/icons/papelera.png " (click)="removeTask(item)">
+                         <a data-toggle="collapse" href="#options-{{item.$key}}" (click)="toogleOptionsCard(item.$key);this.toogleDisableCards(false)"><img src="assets/icons/borrar.png "></a>
+                        </span>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </section>
+
+</div>
