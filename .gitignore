@@ -3,6 +3,9 @@
 # compiled output
 /dist
 /tmp
+/cordova/platforms
+/cordova/www
+
 
 # dependencies
 /node_modules
@@ -39,3 +42,10 @@ testem.log
 #System Files
 .DS_Store
 Thumbs.db
+
+
+# firebaser
+.firebaserc
+/functions/node_modules
+
+
