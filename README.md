@@ -8,9 +8,13 @@
 - Desplegada en Firebase Hosting
 - Adicionalmente se puede empaquetar a través de cordova, el proyecto contiene carpeta ./cordova y script customizado para ello.  
 - Firebase como PaaS.
+- [`Demo de la aplicación (firebase hosting):`](https://pitanzas-public.firebaseapp.com/)
 
-## Demo
-- [`Demo de la aplicación:`](https://pitanzas-public.firebaseapp.com/)
+
+<p align="center">
+  <span><img src="/screenshots/mobile.gif" width="200px"/></span>
+   <span><img src="/screenshots/browser.gif" width="430px"/></span>
+</p>
 
 ## Install
 
