@@ -48,11 +48,12 @@ Ejecuta el build en entorno prod sobre la carpeta cordova/www seteando el base-h
 Desplegada sobre firebase hosting, [`aquí`](https://pitanzas-public.firebaseapp.com/)
 
 ## Pending
-- AOT
-- LazyLoading
+- Actualizar angular@cli
+- Documentacion
+- Augury screenshots
 - ElectronJS
 - Icono WIFI
-- I18N
+- Testing
 
 ## License
 Licensed under the MIT Open Source license.
